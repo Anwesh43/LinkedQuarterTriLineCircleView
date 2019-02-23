@@ -43,11 +43,12 @@ fun Canvas.drawQTLCNode(i : Int, scale : Float, paint : Paint) {
     save()
     translate(w / 2, gap * (i + 1))
     rotate(90f * sc2)
-    drawArc(RectF(-size, -size, size, size), -90f, 90f, true, paint)
+    drawArc(RectF(-size, -size, size, size), -90f, 90f, false, paint)
+    drawLine(0f, 0f, size, 0f, paint)
     var deg : Float = 0f
     val gapDeg : Float = 90f / lines
     for (j in 0..(lines - 1)) {
-        deg += gapDeg * sc1
+        deg += gapDeg * sc1.divideScale(j, lines)
         save()
         rotate(-deg)
         drawLine(0f, 0f, size, 0f, paint)
@@ -173,7 +174,7 @@ class QuarterTriLineCircleView(ctx : Context) : View(ctx) {
         private var dir : Int = 1
 
         fun draw(canvas : Canvas, paint : Paint) {
-            curr.draw(canvas, paint)
+            root.draw(canvas, paint)
         }
 
         fun update(cb : (Int, Float) -> Unit) {

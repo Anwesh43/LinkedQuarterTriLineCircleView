@@ -210,4 +210,13 @@ class QuarterTriLineCircleView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : QuarterTriLineCircleView {
+            val view : QuarterTriLineCircleView = QuarterTriLineCircleView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }

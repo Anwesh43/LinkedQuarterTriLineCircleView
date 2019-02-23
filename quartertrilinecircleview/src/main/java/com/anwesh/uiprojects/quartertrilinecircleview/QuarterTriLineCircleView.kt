@@ -188,4 +188,25 @@ class QuarterTriLineCircleView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : QuarterTriLineCircleView) {
+        private val qtlc : QuarterTriLineCircle = QuarterTriLineCircle(0)
+        private val animator : Animator = Animator(view)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            qtlc.draw(canvas, paint)
+            animator.animate {
+                qtlc.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            qtlc.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
